@@ -1,8 +1,5 @@
-import { Injectable } from "../libs/decorator";
-import { Course } from "#cds-models/cnma/learninghub";
 import cds from "@sap/cds";
 
-@Injectable()
 export class LearningHubRepository {
   async findAllCourses() {
     const { Course } = cds.entities("cnma.learninghub");

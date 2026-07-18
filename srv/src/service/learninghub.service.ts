@@ -1,9 +1,7 @@
-import { Service } from "../libs/decorator";
 import { UserRepository } from "../repository/user.repository";
 import { LearningHubRepository } from "../repository/learninghub.repository";
 import { UserInfoResponse } from "#cds-models/cnma/type";
 
-@Service("LearningHubService")
 export class LearningHubService {
   constructor(
     private readonly userRepo: UserRepository,
