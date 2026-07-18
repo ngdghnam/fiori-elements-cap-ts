@@ -2,6 +2,7 @@
   "devDependencies": {
     "@cap-js/cds-typer": ">=0.1",
     "@cap-js/cds-types": "^0.16.0",
+    "@sap/cds-dk": "^9",
     "@types/node": "^24.0.0",
     "tsx": "^4",
     "typescript": "^5"
@@ -9,16 +10,18 @@
   "dependencies": {
     "@cap-js/hana": "^3.0.1",
     "@cap-js/sqlite": "^3.0.2",
+    "@sap/xssec": "^4.13.3",
     "cds-swagger-ui-express": "^0.11.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
+    "passport": "^0.7.0",
     "reflect-metadata": "^0.2.2"
   },
   "scripts": {
     "start": "cds-serve",
-    "build": "",
+    "build": "npx @cap-js/cds-typer \"*\" --outputDirectory @cds-models && tsc",
     "watch": "cds watch",
-    "deploy": "cds deploy --to sqlite"
+    "deploy": "cds deploy"
   },
   "imports": {
     "#cds-models/*": "./@cds-models/*/index.js"
@@ -33,6 +36,9 @@
             "url": "learning_platform.sqlite"
           }
         }
+      },
+      "[production]": {
+        "auth": "xsuaa"
       }
     }
   }

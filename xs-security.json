@@ -1,0 +1,20 @@
+{
+  "xsappname": "cnma.learninghub",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.CNMA.COURSE.CREATE",
+      "description": "Create Courses"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "CourseCreator",
+      "description": "Role template for Course Creators",
+      "scope-references": [
+        "$XSAPPNAME.CNMA.COURSE.CREATE"
+      ]
+    }
+  ]
+}

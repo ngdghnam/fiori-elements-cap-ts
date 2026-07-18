@@ -11,9 +11,18 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "allowJs": true,
+    "rootDir": "srv",
+    "outDir": "gen/srv",
     "paths": {
       "@sap/cds": ["./node_modules/@cap-js/cds-types"],
       "#cds-models/*": ["./@cds-models/*"]
     }
-  }
+  },
+  "include": [
+    "srv/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "@cds-models"
+  ]
 }

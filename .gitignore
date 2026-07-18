@@ -1,2 +1,7 @@
 @cds-models
 node_modules
+*.db
+gen/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
