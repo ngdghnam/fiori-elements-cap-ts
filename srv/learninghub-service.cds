@@ -8,7 +8,10 @@ using {cnma.type as type} from '../db/schema/type';
 service LEARNINGHUB_SRV @(path: 'api/cnma/LEARNINGHUB_SRV') {
 
     // Expose entities
-    entity Course          as projection on learninghub.Course;
+    entity Course          as projection on learninghub.Course {
+        *,
+        virtual null as progress : Integer
+    };
     entity Section         as projection on learninghub.Section;
     entity Lecture         as projection on learninghub.Lecture;
     entity Resource        as projection on learninghub.Resource;

@@ -17,11 +17,13 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/api/cnma/LEARNINGHUB_SRV/",
+        "uri": "/odata/v2/api/cnma/LEARNINGHUB_SRV/",
         "type": "OData",
+        "useBatch": false,
         "settings": {
           "annotations": [],
-          "odataVersion": "4.01"
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
         }
       }
     },
@@ -66,7 +68,8 @@
         "sap.fe.templates": {},
         "sap.ovp": {},
         "sap.ui.rta": {},
-        "sap.ui.layout": {}
+        "sap.ui.layout": {},
+        "sap.f": {}
       }
     },
     "contentDensities": {
@@ -82,11 +85,13 @@
       },
       "mainModel": {
         "dataSource": "mainService",
+        "type": "sap.ui.model.odata.v2.ODataModel",
         "preload": true,
         "settings": {
-          "operationMode": "Server",
-          "autoExpandSelect": true,
-          "earlyRequests": true
+          "defaultOperationMode": "Server",
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Request",
+          "useBatch": false
         }
       },
       "@i18n": {
@@ -109,7 +114,27 @@
     "containerLayout": "resizable",
     "enableLiveFilter": true,
     "considerAnalyticalParameters": false,
-    "cards": {},
+    "cards": {
+      "courseProgressCard": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.list",
+        "settings": {
+          "title": "Course Progress",
+          "entitySet": "Course",
+          "listType": "extended",
+          "listFlavor": "standard",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem"
+        }
+      },
+      "userInfoCard": {
+        "model": "mainModel",
+        "template": "cnma.learningplatform.cnmalearningplatform.ext.customCards.UserInfo",
+        "settings": {
+          "title": "User Profile",
+          "entitySet": "User"
+        }
+      }
+    },
     "globalFilterControlType": "MacroFilterBar"
   },
   "sap.fiori": {

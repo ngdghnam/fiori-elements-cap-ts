@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.f"
+  xmlns:card="sap.f.cards">
+
+  <VBox class="sapUiSmallMargin" binding="{userModel>/}">
+    <HBox alignItems="Center">
+      <f:Avatar src="{userModel>/avatar}" displaySize="L" initials="{userModel>/initials}" class="sapUiSmallMarginEnd"/>
+      <VBox>
+        <Title text="{userModel>/fullName}" level="H3"/>
+        <Text text="{userModel>/email}"/>
+      </VBox>
+    </HBox>
+  </VBox>
+</core:FragmentDefinition>
