@@ -1,0 +1,4 @@
+ID;title;description;thumbnail;estimatedDuration;difficulty;language;status;author_ID
+20000000-0000-0000-0000-000000000001;Course 1: Single Article;This course has only one article.;thumb1.jpg;30;Beginner;English;Published;10000000-0000-0000-0000-000000000001
+20000000-0000-0000-0000-000000000002;Course 2: Multiple Sections;This course has multiple sections and articles.;thumb2.jpg;120;Intermediate;English;Published;10000000-0000-0000-0000-000000000001
+20000000-0000-0000-0000-000000000003;Course 3: Advanced Topics;Another course with multiple sections.;thumb3.jpg;180;Advanced;English;Published;10000000-0000-0000-0000-000000000002
