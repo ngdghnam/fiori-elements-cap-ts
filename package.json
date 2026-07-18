@@ -4,35 +4,40 @@
     "@cap-js/cds-types": "^0.18.0",
     "@sap/cds-dk": "^10",
     "@types/node": "^24.0.0",
-    "tsx": "^4",
-    "typescript": "^5",
     "cds-plugin-ui5": "^0.13.0",
+    "mbt": "^1.2.29",
     "rimraf": "^5.0.5",
-    "mbt": "^1.2.29"
+    "tsx": "^4",
+    "typescript": "^5"
   },
   "dependencies": {
+    "@cap-js-community/odata-v2-adapter": "^1.16.0",
     "@cap-js/hana": "^3.0.1",
     "@cap-js/sqlite": "^3.0.2",
+    "@sap/cds": "^10",
     "@sap/xssec": "^4.13.3",
     "cds-swagger-ui-express": "^0.11.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
     "passport": "^0.7.0",
-    "reflect-metadata": "^0.2.2",
-    "@sap/cds": "^10"
+    "reflect-metadata": "^0.2.2"
   },
   "scripts": {
     "start": "cds-serve",
+    "db:deploy": "cds deploy --to sqlite:learning_platform.sqlite",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "watch": "cds watch",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
-    "watch-cnma_learning_platform": "cds watch --open cnma.learningplatform.cnmalearningplatform/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "dev": "cds watch --open index.html --livereload false",
     "undeploy": "cf undeploy cnma.learninghub --delete-services --delete-service-keys --delete-service-brokers"
   },
   "imports": {
     "#cds-models/*": "./@cds-models/*/index.js"
   },
   "cds": {
+    "cov2ap": {
+      "plugin": true
+    },
     "requires": {
       "db": {
         "[development]": {
