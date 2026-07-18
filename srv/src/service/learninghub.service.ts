@@ -5,8 +5,8 @@ import { UserRepository } from "../repository/user.repository";
 export class LearningHubService {
   constructor(private readonly userRepo: UserRepository) {}
 
-  async getUserInfo(userId: string) {
-    const user = await this.userRepo.getUser(userId);
+  async getUserInfo(userID: string) {
+    const user = await this.userRepo.findUserByID(userID);
     return user;
   }
 }

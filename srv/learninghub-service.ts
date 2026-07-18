@@ -1,5 +1,5 @@
 import cds from "@sap/cds";
-import LearningHubHandler from "./src/handler/learningHub.handler";
+import LearningHubHandler from "./src/handler/learninghub.handler";
 
 export class LEARNINGHUB_SRV extends cds.ApplicationService {
   async init() {
