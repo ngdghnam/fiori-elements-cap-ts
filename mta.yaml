@@ -1,56 +1,103 @@
 _schema-version: 3.3.0
 ID: cnma.learninghub
+description: A simple CAP project.
 version: 1.0.0
-description: "A simple CAP project."
+modules:
+- name: cnma.learninghub-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: cnma.learninghub-db
+  - name: cnma.learninghub-auth
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    instances: 1
+  build-parameters:
+    builder: npm-ci
+- name: cnma.learninghub-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: cnma.learninghub-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: cnma.learninghub-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: cnma.learninghub-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - cnmalearningplatformcnmalearningplatform.zip
+      name: cnmalearningplatformcnmalearningplatform
+      target-path: resources/
+- name: cnmalearningplatformcnmalearningplatform
+  type: html5
+  path: app/cnma_learning_platform
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: cnma.learninghub-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: cnma.learninghub-auth
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      oauth2-configuration:
+        credential-types:
+        - binding-secret
+        - x509
+      tenant-mode: dedicated
+      xsappname: cnma.learninghub-${org}-${space}
+    path: ./xs-security.json
+    service: xsuaa
+    service-plan: application
+- name: cnma.learninghub-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: cnma.learninghub-html5-service
+    service-plan: app-host
+- name: cnma.learninghub-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: cnma.learninghub-destination-service
+    service-plan: lite
 parameters:
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
-    - builder: custom
-      commands:
-        - npm ci
-        - npx cds build --production
-modules:
-  - name: cnma.learninghub-srv
-    type: nodejs
-    path: gen/srv
-    parameters:
-      instances: 1
-      buildpack: nodejs_buildpack
-    build-parameters:
-      builder: npm-ci
-    provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
-        properties:
-          srv-url: ${default-url}
-    requires:
-      - name: cnma.learninghub-db
-      - name: cnma.learninghub-auth
-
-  - name: cnma.learninghub-db-deployer
-    type: hdb
-    path: gen/db
-    parameters:
-      buildpack: nodejs_buildpack
-    requires:
-      - name: cnma.learninghub-db
-
-resources:
-  - name: cnma.learninghub-db
-    type: com.sap.xs.hdi-container
-    parameters:
-      service: hana
-      service-plan: hdi-shared
-  - name: cnma.learninghub-auth
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: xsuaa
-      service-plan: application
-      path: ./xs-security.json
-      config:
-        xsappname: cnma.learninghub-${org}-${space}
-        tenant-mode: dedicated
-        oauth2-configuration:
-          credential-types:
-            - "binding-secret"
-            - "x509"
+  - builder: custom
+    commands:
+    - npm ci
+    - npx cds build --production
