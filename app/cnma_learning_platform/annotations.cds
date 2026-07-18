@@ -1,0 +1,1 @@
+using LEARNINGHUB_SRV as service from '../../srv/learninghub-service';
