@@ -36,38 +36,40 @@ sap.ui.define([
       var oMainModel = this.getModel();
       
       if (oMainModel) {
-        var oContext = oMainModel.bindContext("/getUserInfo(...)");
-        oContext.setParameter("userId", "current");
-        
-        oContext.execute().then(function () {
-          var oData = oContext.getBoundContext().getObject();
-          var initials = "";
-          
-          if (oData.fullName) {
-             var parts = oData.fullName.split(" ");
-             if (parts.length > 1) {
-               initials = (parts[0][0] + parts[1][0]).toUpperCase();
-             } else {
-               initials = parts[0][0].toUpperCase();
-             }
-          } else if (oData.email) {
-             initials = oData.email[0].toUpperCase();
-          }
+        oMainModel.callFunction("/getUserInfo", {
+          method: "GET",
+          urlParameters: { userId: "'current'" },
+          success: function(oData) {
+            var result = oData.getUserInfo || oData.results || oData;
+            var initials = "";
+            
+            if (result.fullName) {
+               var parts = result.fullName.split(" ");
+               if (parts.length > 1) {
+                 initials = (parts[0][0] + parts[1][0]).toUpperCase();
+               } else {
+                 initials = parts[0][0].toUpperCase();
+               }
+            } else if (result.email) {
+               initials = result.email[0].toUpperCase();
+            }
 
-          oModel.setData({
-            fullName: oData.fullName,
-            email: oData.email,
-            avatar: oData.avatar,
-            initials: initials
-          });
-        }).catch(function(oError) {
-          console.error("Error fetching user info:", oError);
-          oModel.setData({
-            fullName: "Error",
-            email: "Could not load user profile",
-            avatar: "",
-            initials: "!"
-          });
+            oModel.setData({
+              fullName: result.fullName,
+              email: result.email,
+              avatar: result.avatar,
+              initials: initials
+            });
+          },
+          error: function(oError) {
+            console.error("Error fetching user info:", oError);
+            oModel.setData({
+              fullName: "Error",
+              email: "Could not load user profile",
+              avatar: "",
+              initials: "!"
+            });
+          }
         });
       }
     }

@@ -10,13 +10,34 @@ export class LearningHubService {
     private readonly learningHubRepo: LearningHubRepository,
   ) {}
 
-  async getUserInfo(userID: string): Promise<UserInfoResponse> {
+  async getUserInfo(userID: string, reqUser?: any): Promise<UserInfoResponse> {
     const user = await this.userRepo.findUserByID(userID);
+
+    if (!user) {
+      // Hardcoded fallback mock user for development
+      return {
+        ID: userID,
+        fullName: "Nguyen Dang Hoai Nam",
+        email: "nam.nguyen@conarum.com",
+        avatar: "https://avatars.githubusercontent.com/u/4723114",
+        permissions: {
+          canCreateCourse: true,
+          canCreateArticle: true,
+          isAdmin: true,
+        },
+      };
+    }
 
     const res: UserInfoResponse = {
       ID: user.ID,
       fullName: user.fullName,
       email: user.email,
+      avatar: user.avatar,
+      permissions: {
+        canCreateCourse: true,
+        canCreateArticle: true,
+        isAdmin: true,
+      },
     };
 
     return res;
@@ -26,10 +47,8 @@ export class LearningHubService {
     const lectures = await this.learningHubRepo.findLecturesByCourse(courseID);
     if (!lectures || lectures.length === 0) return 0;
 
-    const completedLectures = await this.learningHubRepo.findCompletedLecturesByUser(
-      courseID,
-      userID,
-    );
+    const completedLectures =
+      await this.learningHubRepo.findCompletedLecturesByUser(courseID, userID);
 
     const progress = Math.round(
       (completedLectures.length / lectures.length) * 100,

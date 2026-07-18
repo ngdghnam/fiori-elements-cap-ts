@@ -115,6 +115,27 @@
     "enableLiveFilter": true,
     "considerAnalyticalParameters": false,
     "cards": {
+      "userInfoCard": {
+        "model": "mainModel",
+        "template": "cnma.learningplatform.cnmalearningplatform.ext.customCards.UserInfo",
+        "settings": {
+          "title": "User Profile",
+          "entitySet": "User"
+        }
+      },
+      "continueLearningCard": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.list",
+        "settings": {
+          "title": "Continue Learning",
+          "subTitle": "Lectures you are currently taking",
+          "entitySet": "LectureProgress",
+          "listType": "extended",
+          "listFlavor": "standard",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#ContinueLearning",
+          "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#ContinueLearning"
+        }
+      },
       "courseProgressCard": {
         "model": "mainModel",
         "template": "sap.ovp.cards.list",
@@ -126,12 +147,39 @@
           "annotationPath": "com.sap.vocabularies.UI.v1.LineItem"
         }
       },
-      "userInfoCard": {
+      "latestCoursesCard": {
         "model": "mainModel",
-        "template": "cnma.learningplatform.cnmalearningplatform.ext.customCards.UserInfo",
+        "template": "sap.ovp.cards.list",
         "settings": {
-          "title": "User Profile",
-          "entitySet": "User"
+          "title": "Latest Courses",
+          "subTitle": "Discover new courses",
+          "entitySet": "Course",
+          "listType": "condensed",
+          "listFlavor": "standard",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#LatestCourses",
+          "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#LatestCourses"
+        }
+      },
+      "latestArticlesCard": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.list",
+        "settings": {
+          "title": "Latest Articles",
+          "subTitle": "Knowledge Sharing",
+          "entitySet": "Article",
+          "listType": "condensed",
+          "listFlavor": "standard",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#LatestArticles",
+          "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#LatestArticles"
+        }
+      },
+      "coursesByCategoryCard": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.charts.analytical",
+        "settings": {
+          "title": "Courses by Category",
+          "entitySet": "Course",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#CoursesByCategory"
         }
       }
     },
