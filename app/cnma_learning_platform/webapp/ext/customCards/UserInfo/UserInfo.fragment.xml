@@ -5,11 +5,11 @@
   xmlns:card="sap.f.cards">
 
   <VBox class="sapUiSmallMargin" binding="{userModel>/}">
-    <HBox alignItems="Center">
+    <HBox alignItems="Center" fitContainer="true" width="100%">
       <f:Avatar src="{userModel>/avatar}" displaySize="L" initials="{userModel>/initials}" class="sapUiSmallMarginEnd"/>
-      <VBox>
-        <Title text="{userModel>/fullName}" level="H3"/>
-        <Text text="{userModel>/email}"/>
+      <VBox width="100%">
+        <Title text="{userModel>/fullName}" level="H3" wrapping="true"/>
+        <Text text="{userModel>/email}" wrapping="true"/>
       </VBox>
     </HBox>
   </VBox>

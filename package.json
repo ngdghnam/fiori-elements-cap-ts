@@ -28,7 +28,7 @@
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "watch": "cds watch",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
-    "dev": "cds watch --open cnma_learning_platform/webapp/index.html --livereload false",
+    "dev": "cds watch --livereload false",
     "undeploy": "cf undeploy cnma.learninghub --delete-services --delete-service-keys --delete-service-brokers"
   },
   "imports": {
@@ -44,7 +44,9 @@
           "kind": "dummy",
           "users": {
             "current": {
-              "roles": ["admin"]
+              "roles": [
+                "admin"
+              ]
             }
           }
         }
@@ -67,6 +69,8 @@
     "app/*"
   ],
   "sapux": [
-    "app/cnma_learning_platform"
+    "app/cnma_learning_platform",
+    "app/course_manager",
+    "app/tag_manager"
   ]
 }

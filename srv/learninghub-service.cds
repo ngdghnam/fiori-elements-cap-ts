@@ -8,6 +8,7 @@ using {cnma.type as type} from '../db/schema/type';
 service LEARNINGHUB_SRV @(path: 'api/cnma/LEARNINGHUB_SRV') {
 
     // Expose entities
+    @odata.draft.enabled
     entity Course          as projection on learninghub.Course {
         *,
         virtual null as progress : Integer
@@ -26,6 +27,7 @@ service LEARNINGHUB_SRV @(path: 'api/cnma/LEARNINGHUB_SRV') {
 
     // Common
     entity Category        as projection on common.Category;
+    @odata.draft.enabled
     entity Tag             as projection on common.Tag;
 
     // Users

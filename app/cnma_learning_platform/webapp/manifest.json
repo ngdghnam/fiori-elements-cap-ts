@@ -144,7 +144,7 @@
           "entitySet": "Course",
           "listType": "extended",
           "listFlavor": "standard",
-          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem"
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#CourseProgress"
         }
       },
       "latestCoursesCard": {
@@ -180,6 +180,27 @@
           "title": "Courses by Category",
           "entitySet": "Course",
           "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#CoursesByCategory"
+        }
+      },
+      "quickLinksCard": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.linklist",
+        "settings": {
+          "title": "Admin Navigation",
+          "subTitle": "Manage System Data",
+          "listFlavor": "standard",
+          "staticContent": [
+            {
+              "title": "Manage Courses",
+              "targetUri": "../../course_manager/webapp/index.html",
+              "icon": "sap-icon://education"
+            },
+            {
+              "title": "Manage Tags",
+              "targetUri": "../../tag_manager/webapp/index.html",
+              "icon": "sap-icon://tag"
+            }
+          ]
         }
       }
     },

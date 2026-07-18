@@ -11,5 +11,6 @@ entity Category : cuid, managed {
 }
 
 entity Tag : cuid, managed {
-    name : String(500);
+    name        : String(500);
+    description : String(1000);
 }

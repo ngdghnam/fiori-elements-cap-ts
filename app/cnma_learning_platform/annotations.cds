@@ -5,10 +5,14 @@ annotate service.Course with @(
         TypeName: 'Course',
         TypeNamePlural: 'Courses',
         Title: { $Type: 'UI.DataField', Value: title },
-        Description: { $Type: 'UI.DataField', Value: description }
+        Description: { $Type: 'UI.DataField', Value: difficulty },
+        ImageUrl: thumbnail
     },
+    UI.Identification: [
+        { $Type: 'UI.DataField', Value: title }
+    ],
     // Main LineItem used for "Course Progress" card
-    UI.LineItem: [
+    UI.LineItem #CourseProgress: [
         { $Type: 'UI.DataField', Value: title, Label: 'Course Title' },
         { $Type: 'UI.DataFieldForAnnotation', Target: '@UI.DataPoint#Progress', Label: 'Progress' }
     ],

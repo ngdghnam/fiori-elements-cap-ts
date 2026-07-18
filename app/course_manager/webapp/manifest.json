@@ -1,0 +1,144 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "cnma.learningplatform.coursemanager",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "title": "Course Management",
+    "description": "Manage Courses and Sections",
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/api/cnma/LEARNINGHUB_SRV/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "CourseManager-display": {
+          "semanticObject": "CourseManager",
+          "action": "display",
+          "title": "Course Management",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.108.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "cnma.learningplatform.coursemanager.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "type": "sap.ui.model.odata.v4.ODataModel",
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "CourseList",
+          "target": "CourseList"
+        },
+        {
+          "pattern": "Course({key}):?query:",
+          "name": "CourseObjectPage",
+          "target": "CourseObjectPage"
+        },
+        {
+          "pattern": "Course({key})/_Section({key2}):?query:",
+          "name": "SectionObjectPage",
+          "target": "SectionObjectPage"
+        }
+      ],
+      "targets": {
+        "CourseList": {
+          "type": "Component",
+          "id": "CourseList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "Course",
+              "navigation": {
+                "Course": {
+                  "detail": {
+                    "route": "CourseObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CourseObjectPage": {
+          "type": "Component",
+          "id": "CourseObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "entitySet": "Course",
+              "navigation": {
+                "sections": {
+                  "detail": {
+                    "route": "SectionObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "SectionObjectPage": {
+          "type": "Component",
+          "id": "SectionObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "entitySet": "Section"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}
